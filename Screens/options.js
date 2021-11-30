@@ -1,0 +1,18 @@
+export default [
+        {title:'Apropriação'}, 
+        {title:'Condições do extintor de incêndio'}, 
+        {title:'Condições do pára-brisa'}, 
+        {title:'Condições dos cintos de segurança'}, 
+        {title:'Condições dos pneus e estepe'}, 
+        {title:'Condições dos retrovisores'}, 
+        {title:'Condições dos vidros e travas das portas'}, 
+        {title:'Documentação do veículo'}, 
+        {title:'Equipamento obrigatório'}, 
+        {title:'Funcionamento da buzina'}, 
+        {title:'Funcionamento da luz de ré'}, 
+        {title:'Funcionamento das lanternas'}, 
+        {title:'Funcionamento das setas'}, 
+        {title:'Funcionamento do limpador de pára-brisa'}, 
+        {title:'Funcionamento dos faróis'}, 
+        {title:'Painel'},  
+    ]
