@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet,   BackAndroid } from 'react-native';
 import { View, CheckBox, FlatList, SectionList } from 'react-native';
 import {   Button, Input } from 'react-native-elements';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -7,13 +7,13 @@ import { NavigationContainer, NavigationContainerRefContext } from '@react-navig
 import { Icon } from 'react-native-vector-icons/FontAwesome';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import stylesp from '../telainicial/styles';
+
 import CheckBoxIcon from 'react-native-elements/dist/checkbox/CheckBoxIcon';
-import { flexDirection, style } from 'styled-system';
+
 import { ScrollView } from 'react-native';
 import styles from '../../style/MainStyle';
 import { RadioButton, Text, List, Divider, TextInput } from 'react-native-paper';
-import { interpolateNode } from 'react-native-reanimated';
+
 import { InteractionManager } from 'react-native';
 import { ListItem } from 'react-native-elements/dist/list/ListItem';
 import Constants from 'expo-constants';
@@ -28,8 +28,13 @@ export default function check({navigation}) {
    * 2: segunda opção
    * 3: terceira opção
    */
-   const [text, setText] = React.useState('');
-  const [select, setSelect]=useState(false);
+   const [text, setText] = React.useState({
+    
+
+   });
+   
+  
+  
   const [items, setItems] = useState(checklistOptions.reduce((acc, curr) => {
     /**
      * Checa se a chave correspondente ao título do item está presente no objeto acumulado, caso não esteja acrescenta no objeto e marca
@@ -49,23 +54,27 @@ export default function check({navigation}) {
       ...v,
       [item]: value
     }))
-    
+   
   }
 
   /**
    * Função chamada pelo botão de enviar
    */
   
-  
+ 
 
   const handleSubmit = () =>  {
-    
+    const problems = []
 
+    Object.entries(items).forEach(([key, value]) => {
+      if (value === "2")
+        problems.push(key)
+    })
 
-    navigation.navigate('finish');
-
-    
-    
+    navigation.navigate('finish', {
+      problems
+    });   
+     
     /**
      * Atualmente a função não faz nada a não ser um console.log de todos os itens e seus respectivos valores,
      * é aqui que o tratamento dos dados a serem enviados deve ser feito.
@@ -80,15 +89,11 @@ export default function check({navigation}) {
           barStyle="dark-content"
         />
         <View style={styles.sectionHeader}> 
-        <TextInput
-            label="Veiculo"
-            value={text}
-            onChangeText={text => setText(text)}
-            />    
+       
           <FlatList
             
             data={checklistOptions}
-            ri
+            
             renderItem={({item})=>(
             
             <View >
@@ -113,11 +118,12 @@ export default function check({navigation}) {
                       <RadioButton value="1" />
                     </View>
                     <View>
-                      <Text >Não Conforme
-                      </Text>
-                      <RadioButton value="2"
-                      onPress={()=>setSelect(true)}
-                      />
+                      <Text >Não Conforme</Text>
+                      <RadioButton value="2">
+                      
+                      </RadioButton>
+                          
+                      
                     </View>
                     <View>
                       <Text>Não Aplica</Text>
@@ -129,6 +135,7 @@ export default function check({navigation}) {
 
             </View>
         )}
+
         keyExtractor={(item, index)=>index.toString()}       
         />
       </View>
@@ -137,7 +144,7 @@ export default function check({navigation}) {
         titleStyle={specifcStyle.titleStyle}
         type="check"
         buttonStyle={specifcStyle.button}
-        onPress={()=> handleSubmit(checklistOptions)}
+        onPress={()=> handleSubmit()}
       />
     </SafeAreaView>
   );
